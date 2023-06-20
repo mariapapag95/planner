@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:bidirectional_listview/bidirectional_listview.dart';
 import 'package:planner/state/week_state.dart';
 import 'package:states_rebuilder/scr/state_management/extensions/reactive_model_x.dart';
 
 class Week extends StatelessWidget {
+  const Week({super.key});
+
   @override
   Widget build(BuildContext context) {
     return week.rebuild(
@@ -21,7 +24,7 @@ class Week extends StatelessWidget {
           bool isToday = index == 0;
           DateTime day = DateTime(weekState.today.year, weekState.today.month,
               weekState.today.day + index);
-          return Container(
+          return SizedBox(
             width: (MediaQuery.of(context).size.width) /
                 (weekState.weekdayExpanded ? 1 : 7),
             child: Column(

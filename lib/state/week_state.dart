@@ -1,7 +1,7 @@
-import 'package:planner/state/view_state.dart';
-import 'package:planner/task_model.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
+import 'package:planner/model/task_model.dart';
 import 'package:planner/state/day_state.dart';
+import 'package:planner/state/view_state.dart';
+import 'package:states_rebuilder/states_rebuilder.dart';
 
 var week = RM.inject(() => WeekState());
 var weekState = week.state;
@@ -27,7 +27,7 @@ class WeekState {
       monthEnd.day - today.day + 1,
       (index) => DateTime(today.year, today.month, today.day + index),
     );
-    if (days.length < 7)
+    if (days.length < 7) {
       days.addAll(
         List.generate(
           7 - days.length,
@@ -40,6 +40,7 @@ class WeekState {
           ),
         ),
       );
+    }
     return days;
   }
 

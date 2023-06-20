@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:planner/state/month_state.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-import 'package:planner/widgets/calendar_card.dart';
-import 'package:planner/widgets/spacers.dart';
+import 'package:planner/state/month_state.dart';
+import 'package:planner/view/widgets/calendar_card.dart';
+import 'package:planner/view/widgets/spacers.dart';
 import 'package:states_rebuilder/scr/state_management/extensions/reactive_model_x.dart';
 
 class Month extends StatelessWidget {
+  const Month({super.key});
+
   @override
   Widget build(BuildContext context) {
     return month.rebuild(
       () => Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.only(top: 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,9 +53,9 @@ class Month extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onHorizontalDragEnd: (DragEndDetails details) {
-                print(details);
-                if (details.primaryVelocity == 0)
-                  return; // user have just tapped on screen (no dragging)
+                if (details.primaryVelocity == 0) {
+                  return; // user has just tapped on screen (no dragging)
+                }
 
                 if (details.primaryVelocity?.compareTo(0) == -1) {
                   monthState.nextMonth();
@@ -60,17 +63,15 @@ class Month extends StatelessWidget {
                   monthState.previousMonth();
                 }
               },
-              child: Container(
-                child: GridView.count(
-                  padding: EdgeInsets.all(Spacers.smallSize),
-                  childAspectRatio: 1.25,
-                  physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 7,
-                  children: [
-                    for (CalendarCardItem day in monthState.allCalendarDays)
-                      CalendarCard(day: day),
-                  ],
-                ),
+              child: GridView.count(
+                padding: const EdgeInsets.all(Spacers.xsmallSize),
+                childAspectRatio: 1.25,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 7,
+                children: [
+                  for (CalendarCardItem day in monthState.allCalendarDays)
+                    CalendarCard(day: day),
+                ],
               ),
             ),
           ),

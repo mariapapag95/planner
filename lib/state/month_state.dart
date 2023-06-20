@@ -1,6 +1,6 @@
+import 'package:planner/model/task_model.dart';
 import 'package:planner/state/view_state.dart';
-import 'package:planner/task_model.dart';
-import 'package:planner/widgets/calendar_card.dart';
+import 'package:planner/view/widgets/calendar_card.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 var month = RM.inject(() => MonthState());

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:planner/model/task_model.dart';
 import 'package:planner/state/month_state.dart';
-import 'package:planner/task_model.dart';
-import 'package:planner/widgets/spacers.dart';
+import 'package:planner/view/widgets/spacers.dart';
 
 class CalendarCardItem {
   CalendarCardItem({
@@ -26,19 +26,19 @@ class CalendarCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: Spacers.xsmallSize,
-        left: Spacers.xsmallSize,
+      padding: const EdgeInsets.only(
+        bottom: Spacers.xxsmallSize,
+        left: Spacers.xxsmallSize,
       ),
       child: Container(
-        padding: EdgeInsets.all(
-          Spacers.xsmallSize,
+        padding: const EdgeInsets.all(
+          Spacers.xxsmallSize,
         ),
         decoration: BoxDecoration(
           color: day.isInCurrentMonth
               ? Theme.of(context).splashColor
               : Theme.of(context).highlightColor,
-          borderRadius: BorderRadius.circular(Spacers.smallSize),
+          borderRadius: BorderRadius.circular(Spacers.xsmallSize),
           border: day.day == monthState.today.day &&
                   monthState.displayDate.month == monthState.today.month
               ? Border.all(

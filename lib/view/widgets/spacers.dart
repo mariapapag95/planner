@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
 abstract class Spacers {
-  static const double xsmallSize = 2.0;
-  static const double smallSize = 4.0;
-  static const double regularSize = 8.0;
-  static const double mediumSize = 12.0;
-  static const double largeSize = 24.0;
-  static const double xlargeSize = 32.0;
+  static const double xxsmallSize = 2.0;
+  static const double xsmallSize = 4.0;
+  static const double smallSize = 8.0;
+  static const double regularSize = 12.0;
+  static const double mediumSize = 24.0;
+  static const double largeSize = 32.0;
+  static const double xlargeSize = 40.0;
 
+  static const SizedBox xxsmall = SizedBox(
+    height: xxsmallSize,
+    width: xxsmallSize,
+  );
   static const SizedBox xsmall = SizedBox(
     height: xsmallSize,
     width: xsmallSize,
