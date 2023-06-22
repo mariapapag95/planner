@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner/model/task_model.dart';
-import 'package:planner/state/day_state.dart';
-import 'package:planner/state/view_state.dart';
+import 'package:planner/state/view_controller.dart';
 import 'package:planner/view/widgets/spacers.dart';
 
 class AddTask extends StatelessWidget {
@@ -20,23 +19,23 @@ class AddTask extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TextFormField(
-              controller: viewState.taskTextFieldController,
+              controller: viewController.taskTextFieldController,
               maxLines: 2,
               autocorrect: false,
               autofocus: true,
               onTapOutside: (PointerDownEvent event) =>
-                  viewState.taskTextFieldFocus.unfocus(),
+                  viewController.taskTextFieldFocus.unfocus(),
               // Will this dismiss keyboard automatically?
               decoration: const InputDecoration(
                 hintText: 'Task',
               ),
             ),
             TextFormField(
-              controller: viewState.detailsTextFieldController,
+              controller: viewController.detailsTextFieldController,
               maxLines: 3,
               autocorrect: false,
               onTapOutside: (PointerDownEvent event) =>
-                  viewState.detailsTextFieldFocus.unfocus(),
+                  viewController.detailsTextFieldFocus.unfocus(),
               // Will this dismiss keyboard automatically?
               decoration: const InputDecoration(
                 hintText: 'Details',
@@ -53,19 +52,13 @@ class AddTask extends StatelessWidget {
                         final TimeOfDay? time = await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay(
-                            hour: dayState.today.hour,
-                            minute: dayState.today.minute,
+                            hour: dayController.today.hour,
+                            minute: dayController.today.minute,
                           ),
                         );
                         if (time != null) {
-                          viewState.setTaskTimeValue(time);
+                          viewController.setTaskTimeValue(time);
                         }
-                        // TimePickerDialog(
-                        //   initialTime: TimeOfDay(
-                        //     hour: dayState.today.hour,
-                        //     minute: dayState.today.minute,
-                        //   ),
-                        // )
                       },
                       icon: const Icon(
                         Icons.access_time_sharp,
@@ -76,10 +69,10 @@ class AddTask extends StatelessWidget {
                       onPressed: () => showDialog(
                         context: context,
                         builder: (context) => DatePickerDialog(
-                          initialDate: dayState.today,
-                          firstDate: dayState.today,
-                          lastDate:
-                              dayState.today.add(const Duration(days: 365)),
+                          initialDate: dayController.today,
+                          firstDate: dayController.today,
+                          lastDate: dayController.today
+                              .add(const Duration(days: 365)),
                           fieldHintText: 'Date',
                         ),
                       ),
@@ -91,16 +84,21 @@ class AddTask extends StatelessWidget {
                   ],
                 ),
                 IconButton(
-                  onPressed: () => viewState.addTask(
-                    Task(
-                      id: viewState.tasks.length,
-                      label: viewState.taskTextFieldController.text,
-                      details: viewState.detailsTextFieldController.text,
-                      createdOn: DateTime.now(),
-                      date: viewState.dateTextFieldValue,
-                      time: viewState.timeTextFieldValue,
-                    ),
-                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    viewController.addTask(
+                      Task(
+                        id: viewController.tasks.length,
+                        label: viewController.taskTextFieldController.text,
+                        details: viewController.detailsTextFieldController.text,
+                        createdOn: DateTime.now(),
+                        date: viewController.dateTextFieldValue,
+                        time: viewController.timeTextFieldValue,
+                      ),
+                    );
+                    viewController.taskTextFieldController.clear();
+                    viewController.detailsTextFieldController.clear();
+                  },
                   icon: Icon(
                     Icons.add_circle,
                     color: Theme.of(context).highlightColor,

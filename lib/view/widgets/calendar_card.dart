@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:planner/model/task_model.dart';
-import 'package:planner/state/month_state.dart';
+import 'package:planner/state/view_controller.dart';
 import 'package:planner/view/widgets/spacers.dart';
 
-class CalendarCardItem {
-  CalendarCardItem({
-    required this.day,
-    required this.isInCurrentMonth,
+class CalendarBox {
+  CalendarBox({
+    required this.date,
     this.tasks,
   });
 
-  int day;
-  bool isInCurrentMonth;
+  DateTime date;
   List<Task>? tasks;
+
+  bool get isInCurrentMonth => date.month == viewController.today.month;
 }
 
-class CalendarCard extends StatelessWidget {
-  const CalendarCard({
+class Calendar extends StatelessWidget {
+  const Calendar({
     Key? key,
-    required this.day,
+    required this.box,
   }) : super(key: key);
 
-  final CalendarCardItem day;
+  final CalendarBox box;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +35,11 @@ class CalendarCard extends StatelessWidget {
           Spacers.xxsmallSize,
         ),
         decoration: BoxDecoration(
-          color: day.isInCurrentMonth
+          color: box.isInCurrentMonth
               ? Theme.of(context).splashColor
               : Theme.of(context).highlightColor,
           borderRadius: BorderRadius.circular(Spacers.xsmallSize),
-          border: day.day == monthState.today.day &&
-                  monthState.displayDate.month == monthState.today.month
+          border: box.date == viewController.today
               ? Border.all(
                   color: Theme.of(context).highlightColor,
                 )
@@ -51,9 +50,9 @@ class CalendarCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              day.day.toString(),
+              box.date.day.toString(),
               style: TextStyle(
-                color: day.isInCurrentMonth
+                color: box.isInCurrentMonth
                     ? Theme.of(context).primaryColorDark
                     : Theme.of(context).shadowColor,
               ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planner/state/view_state.dart';
+import 'package:planner/state/view_controller.dart';
 import 'package:states_rebuilder/scr/state_management/extensions/reactive_model_x.dart';
 
 class All extends StatelessWidget {
@@ -12,19 +12,19 @@ class All extends StatelessWidget {
         child: view.rebuild(
           () => Column(
             children: [
-              for (Widget section in viewState.sections)
+              for (Widget section in viewController.sections)
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => viewState.openView(section),
-                    onDoubleTap: () => viewState.closeView(section),
+                    onTap: () => viewController.openView(section),
+                    onDoubleTap: () => viewController.closeView(section),
                     onVerticalDragUpdate: (details) {
                       int sensitivity = 8;
                       if (details.delta.dy > sensitivity) {
                         // Down Swipe
-                        viewState.getRandomTask();
+                        viewController.getRandomTask();
                       } else if (details.delta.dy < -sensitivity) {
                         // Up Swipe
-                        viewState.showAddTaskModal(context);
+                        viewController.showAddTaskModal(context);
                       }
                     },
                     child: section,

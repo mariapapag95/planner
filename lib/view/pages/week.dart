@@ -1,8 +1,8 @@
+import 'package:bidirectional_listview/bidirectional_listview.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-import 'package:bidirectional_listview/bidirectional_listview.dart';
-import 'package:planner/state/week_state.dart';
+import 'package:planner/state/view_controller.dart';
 import 'package:states_rebuilder/scr/state_management/extensions/reactive_model_x.dart';
 
 class Week extends StatelessWidget {
@@ -19,14 +19,17 @@ class Week extends StatelessWidget {
           width: 2,
           color: Theme.of(context).primaryColor,
         ),
-        negativeItemCount: weekState.today.day,
+        negativeItemCount: weekController.today.day,
         itemBuilder: (BuildContext context, int index) {
           bool isToday = index == 0;
-          DateTime day = DateTime(weekState.today.year, weekState.today.month,
-              weekState.today.day + index);
+          DateTime day = DateTime(
+            weekController.today.year,
+            weekController.today.month,
+            weekController.today.day + index,
+          );
           return SizedBox(
             width: (MediaQuery.of(context).size.width) /
-                (weekState.weekdayExpanded ? 1 : 7),
+                (weekController.weekdayExpanded ? 1 : 7),
             child: Column(
               children: [
                 Text(

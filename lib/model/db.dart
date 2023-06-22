@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as _path;
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:planner/model/task_model.dart';
@@ -35,13 +36,11 @@ class TasksDB {
   }
 
   Future<List<Task>?> getTasks() async {
-    print('-' * 200);
     final db = await database;
     if (db == null) {
       return null;
     }
     final List<Map<String, dynamic>> maps = await db.query('tasks');
-    print('MAP          ' * 10);
     return List.generate(
       maps.length,
       (index) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-import 'package:planner/state/month_state.dart';
+import 'package:planner/state/view_controller.dart';
 import 'package:planner/view/widgets/calendar_card.dart';
 import 'package:planner/view/widgets/spacers.dart';
 import 'package:states_rebuilder/scr/state_management/extensions/reactive_model_x.dart';
@@ -29,11 +29,11 @@ class Month extends StatelessWidget {
                       size: 16,
                     ),
                   ),
-                  onTap: () => monthState.previousMonth(),
+                  onTap: () => monthController.previousMonth(),
                 ),
                 Text(
                   DateFormat('MMMM y')
-                      .format(monthState.displayDate)
+                      .format(monthController.displayDate)
                       .toUpperCase(),
                 ),
                 InkWell(
@@ -45,7 +45,7 @@ class Month extends StatelessWidget {
                       size: 16,
                     ),
                   ),
-                  onTap: () => monthState.nextMonth(),
+                  onTap: () => monthController.nextMonth(),
                 ),
               ],
             ),
@@ -58,19 +58,18 @@ class Month extends StatelessWidget {
                 }
 
                 if (details.primaryVelocity?.compareTo(0) == -1) {
-                  monthState.nextMonth();
+                  monthController.nextMonth();
                 } else {
-                  monthState.previousMonth();
+                  monthController.previousMonth();
                 }
               },
               child: GridView.count(
                 padding: const EdgeInsets.all(Spacers.xsmallSize),
-                childAspectRatio: 1.25,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 7,
+                childAspectRatio: monthController.isSelected ? 5 : 1.25,
+                crossAxisCount: monthController.daysInAWeek,
                 children: [
-                  for (CalendarCardItem day in monthState.allCalendarDays)
-                    CalendarCard(day: day),
+                  for (CalendarBox day in monthController.allCalendarDays)
+                    Calendar(box: day),
                 ],
               ),
             ),
