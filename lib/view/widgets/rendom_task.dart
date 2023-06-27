@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:planner/controller/view_controller.dart';
 import 'package:planner/model/task_model.dart';
-import 'package:planner/state/view_controller.dart';
 import 'package:planner/view/widgets/spacers.dart';
 
 class RandomTask extends StatelessWidget {

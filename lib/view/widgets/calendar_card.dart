@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:planner/controller/view_controller.dart';
 import 'package:planner/model/task_model.dart';
-import 'package:planner/state/view_controller.dart';
 import 'package:planner/view/widgets/spacers.dart';
 
-class CalendarBox {
-  CalendarBox({
+class CalendarDay {
+  CalendarDay({
     required this.date,
     this.tasks,
   });
@@ -15,13 +15,13 @@ class CalendarBox {
   bool get isInCurrentMonth => date.month == viewController.today.month;
 }
 
-class Calendar extends StatelessWidget {
-  const Calendar({
+class CalendarCard extends StatelessWidget {
+  const CalendarCard({
     Key? key,
-    required this.box,
+    required this.day,
   }) : super(key: key);
 
-  final CalendarBox box;
+  final CalendarDay day;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,11 @@ class Calendar extends StatelessWidget {
           Spacers.xxsmallSize,
         ),
         decoration: BoxDecoration(
-          color: box.isInCurrentMonth
+          color: day.isInCurrentMonth
               ? Theme.of(context).splashColor
               : Theme.of(context).highlightColor,
           borderRadius: BorderRadius.circular(Spacers.xsmallSize),
-          border: box.date == viewController.today
+          border: day.date == viewController.today
               ? Border.all(
                   color: Theme.of(context).highlightColor,
                 )
@@ -50,9 +50,9 @@ class Calendar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              box.date.day.toString(),
+              day.date.day.toString(),
               style: TextStyle(
-                color: box.isInCurrentMonth
+                color: day.isInCurrentMonth
                     ? Theme.of(context).primaryColorDark
                     : Theme.of(context).shadowColor,
               ),

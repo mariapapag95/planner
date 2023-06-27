@@ -1,5 +1,5 @@
+import 'package:planner/controller/view_controller.dart';
 import 'package:planner/model/task_model.dart';
-import 'package:planner/state/view_controller.dart';
 import 'package:planner/view/pages/month.dart';
 import 'package:planner/view/widgets/calendar_card.dart';
 
@@ -22,10 +22,10 @@ class MonthController {
   DateTime get monthStart => DateTime(displayDate.year, displayDate.month, 1);
   DateTime get monthEnd => DateTime(displayDate.year, displayDate.month + 1, 0);
 
-  List<CalendarBox> get allCalendarDays => List.generate(
+  List<CalendarDay> get allCalendarDays => List.generate(
         calendarLength,
         (int index) {
-          return CalendarBox(
+          return CalendarDay(
             date: (monthStart.subtract(Duration(days: monthStartWeekday))).add(
               Duration(days: index),
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-import 'package:planner/state/view_controller.dart';
+import 'package:planner/controller/view_controller.dart';
 import 'package:planner/view/widgets/calendar_card.dart';
 import 'package:planner/view/widgets/spacers.dart';
 import 'package:states_rebuilder/scr/state_management/extensions/reactive_model_x.dart';
@@ -65,11 +65,11 @@ class Month extends StatelessWidget {
               },
               child: GridView.count(
                 padding: const EdgeInsets.all(Spacers.xsmallSize),
-                childAspectRatio: monthController.isSelected ? 5 : 1.25,
+                childAspectRatio: 1.25,
                 crossAxisCount: monthController.daysInAWeek,
                 children: [
-                  for (CalendarBox day in monthController.allCalendarDays)
-                    Calendar(box: day),
+                  for (CalendarDay day in monthController.allCalendarDays)
+                    CalendarCard(day: day),
                 ],
               ),
             ),

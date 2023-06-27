@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:planner/controller/day_controller.dart';
+import 'package:planner/controller/month_controller.dart';
+import 'package:planner/controller/week_controller.dart';
 import 'package:planner/model/db.dart';
 import 'package:planner/model/task_model.dart';
-import 'package:planner/state/day_controller.dart';
-import 'package:planner/state/month_controller.dart';
-import 'package:planner/state/week_controller.dart';
 import 'package:planner/view/pages/day.dart';
 import 'package:planner/view/pages/month.dart';
 import 'package:planner/view/pages/week.dart';

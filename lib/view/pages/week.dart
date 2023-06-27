@@ -2,7 +2,8 @@ import 'package:bidirectional_listview/bidirectional_listview.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-import 'package:planner/state/view_controller.dart';
+import 'package:planner/controller/view_controller.dart';
+import 'package:planner/model/task_model.dart';
 import 'package:states_rebuilder/scr/state_management/extensions/reactive_model_x.dart';
 
 class Week extends StatelessWidget {
@@ -46,6 +47,9 @@ class Week extends StatelessWidget {
                     fontWeight: isToday ? FontWeight.w900 : FontWeight.normal,
                   ),
                 ),
+                for (Task task in weekController.weekTasks)
+                  // if (task.date?.day == day.day)
+                  Text(task.date?.day.toString() ?? 'no date')
               ],
             ),
           );

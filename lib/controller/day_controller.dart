@@ -1,5 +1,5 @@
+import 'package:planner/controller/view_controller.dart';
 import 'package:planner/model/task_model.dart';
-import 'package:planner/state/view_controller.dart';
 import 'package:planner/view/pages/day.dart';
 
 class DayController {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planner/state/view_controller.dart';
+import 'package:planner/controller/view_controller.dart';
 import 'package:planner/view/pages/all.dart';
 
 void main() async {
