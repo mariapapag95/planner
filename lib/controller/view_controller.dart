@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:planner/controller/day_controller.dart';
 import 'package:planner/controller/month_controller.dart';
@@ -77,14 +79,11 @@ class ViewController {
   }
 
   void getRandomTask() {
-    randomTask = tasks
+    final random = Random();
+    List<Task> filteredTasks = tasks
         .where((Task task) => task.date == null && task.time == null)
-        .toList()
-        .elementAt(
-          int.parse(
-            DateTime.now().millisecondsSinceEpoch.toString()[3],
-          ),
-        );
+        .toList();
+    randomTask = filteredTasks[random.nextInt(filteredTasks.length)];
     view.notify();
   }
 

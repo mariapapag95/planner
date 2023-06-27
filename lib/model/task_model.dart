@@ -8,6 +8,8 @@ class Task {
   final TimeOfDay? time;
   final DateTime createdOn;
 
+  IconData get categoryIcon => Icons.label_important;
+
   Task({
     required this.id,
     required this.label,

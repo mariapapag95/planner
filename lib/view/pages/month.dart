@@ -64,12 +64,13 @@ class Month extends StatelessWidget {
                 }
               },
               child: GridView.count(
+                physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(Spacers.xsmallSize),
                 childAspectRatio: 1.25,
                 crossAxisCount: monthController.daysInAWeek,
                 children: [
-                  for (CalendarDay day in monthController.allCalendarDays)
-                    CalendarCard(day: day),
+                  for (CalendarDate date in monthController.allCalendarDays)
+                    CalendarCard(date: date),
                 ],
               ),
             ),

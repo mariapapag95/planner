@@ -14,18 +14,21 @@ class MonthController {
 
   List<Task> get monthTasks => viewController.tasks.where((Task task) {
         DateTime? taskDate = task.date;
+        Duration oneSecond = const Duration(seconds: 1);
+        DateTime start = allCalendarDays.first.date.subtract(oneSecond);
+        DateTime end = allCalendarDays.last.date.add(oneSecond);
         if (taskDate == null) return false;
-        return taskDate.isAfter(monthStart) && taskDate.isBefore(monthEnd);
+        return taskDate.isAfter(start) && taskDate.isBefore(end);
       }).toList();
 
   int get monthStartWeekday => monthStart.weekday == 7 ? 0 : monthStart.weekday;
   DateTime get monthStart => DateTime(displayDate.year, displayDate.month, 1);
   DateTime get monthEnd => DateTime(displayDate.year, displayDate.month + 1, 0);
 
-  List<CalendarDay> get allCalendarDays => List.generate(
+  List<CalendarDate> get allCalendarDays => List.generate(
         calendarLength,
         (int index) {
-          return CalendarDay(
+          return CalendarDate(
             date: (monthStart.subtract(Duration(days: monthStartWeekday))).add(
               Duration(days: index),
             ),

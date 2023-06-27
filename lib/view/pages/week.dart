@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:planner/controller/view_controller.dart';
 import 'package:planner/model/task_model.dart';
+import 'package:planner/view/widgets/spacers.dart';
 import 'package:states_rebuilder/scr/state_management/extensions/reactive_model_x.dart';
 
 class Week extends StatelessWidget {
@@ -47,9 +48,22 @@ class Week extends StatelessWidget {
                     fontWeight: isToday ? FontWeight.w900 : FontWeight.normal,
                   ),
                 ),
-                for (Task task in weekController.weekTasks)
-                  // if (task.date?.day == day.day)
-                  Text(task.date?.day.toString() ?? 'no date')
+                if (weekController.weekTasks
+                    .any((Task task) => task.date?.day == day.day)) ...<Widget>[
+                  Spacers.regular,
+                  for (Task task in weekController.weekTasks)
+                    if (task.date?.day == day.day)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Spacers.xsmallSize,
+                          vertical: Spacers.xxsmallSize,
+                        ),
+                        child: Icon(
+                          task.categoryIcon,
+                          color: Theme.of(context).highlightColor,
+                        ),
+                      )
+                ]
               ],
             ),
           );

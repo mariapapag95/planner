@@ -3,25 +3,26 @@ import 'package:planner/controller/view_controller.dart';
 import 'package:planner/model/task_model.dart';
 import 'package:planner/view/widgets/spacers.dart';
 
-class CalendarDay {
-  CalendarDay({
+class CalendarDate {
+  CalendarDate({
     required this.date,
-    this.tasks,
   });
 
   DateTime date;
-  List<Task>? tasks;
+  List<Task> get tasks => monthController.monthTasks
+      .where((Task task) =>
+          task.date?.day == date.day &&
+          task.date?.month == date.month &&
+          task.date?.year == date.year)
+      .toList();
 
   bool get isInCurrentMonth => date.month == viewController.today.month;
 }
 
 class CalendarCard extends StatelessWidget {
-  const CalendarCard({
-    Key? key,
-    required this.day,
-  }) : super(key: key);
+  const CalendarCard({Key? key, required this.date}) : super(key: key);
 
-  final CalendarDay day;
+  final CalendarDate date;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,11 @@ class CalendarCard extends StatelessWidget {
           Spacers.xxsmallSize,
         ),
         decoration: BoxDecoration(
-          color: day.isInCurrentMonth
+          color: date.isInCurrentMonth
               ? Theme.of(context).splashColor
               : Theme.of(context).highlightColor,
           borderRadius: BorderRadius.circular(Spacers.xsmallSize),
-          border: day.date == viewController.today
+          border: date.date == viewController.today
               ? Border.all(
                   color: Theme.of(context).highlightColor,
                 )
@@ -50,13 +51,35 @@ class CalendarCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              day.date.day.toString(),
+              date.date.day.toString(),
               style: TextStyle(
-                color: day.isInCurrentMonth
+                color: date.isInCurrentMonth
                     ? Theme.of(context).primaryColorDark
                     : Theme.of(context).shadowColor,
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: List.generate(
+                date.tasks.length,
+                (index) => Padding(
+                  padding: const EdgeInsets.only(
+                    left: Spacers.xxsmallSize,
+                    bottom: Spacers.xxsmallSize,
+                  ),
+                  child: Container(
+                    height: Spacers.xsmallSize,
+                    width: Spacers.xsmallSize,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: date.isInCurrentMonth
+                          ? Theme.of(context).highlightColor
+                          : Theme.of(context).splashColor,
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

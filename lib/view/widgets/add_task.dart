@@ -66,16 +66,30 @@ class AddTask extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      onPressed: () => showDialog(
-                        context: context,
-                        builder: (context) => DatePickerDialog(
-                          initialDate: dayController.today,
-                          firstDate: dayController.today,
-                          lastDate: dayController.today
-                              .add(const Duration(days: 365)),
-                          fieldHintText: 'Date',
-                        ),
-                      ),
+                      onPressed: () async {
+                        final DateTime? date = await showDatePicker(
+                          context: context,
+                          firstDate: viewController.today,
+                          initialDate: viewController.today,
+                          lastDate: viewController.today.add(
+                            const Duration(days: 365),
+                          ),
+                        );
+                        if (date != null) {
+                          viewController.setTaskDateValue(date);
+                        }
+                      },
+
+                      // => showDialog(
+                      //   context: context,
+                      //   builder: (context) => DatePickerDialog(
+                      //     initialDate: dayController.today,
+                      //     firstDate: dayController.today,
+                      //     lastDate: dayController.today
+                      //         .add(const Duration(days: 365)),
+                      //     fieldHintText: 'Date',
+                      //   ),
+                      // ),
                       icon: const Icon(
                         Icons.calendar_today_rounded,
                         size: Spacers.mediumSize,

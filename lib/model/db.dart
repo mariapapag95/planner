@@ -1,4 +1,3 @@
-// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as _path;
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:planner/model/task_model.dart';

@@ -12,10 +12,50 @@ class All extends StatelessWidget {
         child: view.rebuild(
           () => GestureDetector(
             onVerticalDragUpdate: (details) {
-              int sensitivity = 8;
+              int sensitivity = 3;
               if (details.delta.dy > sensitivity) {
                 // Down Swipe
                 viewController.getRandomTask();
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(viewController.randomTask.label),
+                        content: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            minHeight: 200,
+                            minWidth: 700,
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              if (viewController.randomTask.details != null)
+                                Text(viewController.randomTask.details!),
+                              // TODO: Add more info
+                            ],
+                          ),
+                        ),
+                        actions: [
+                          IconButton(
+                            onPressed: () => viewController
+                                .deleteTask(viewController.randomTask),
+                            icon: const Icon(
+                              Icons.delete,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: Navigator.of(context).pop,
+                            icon: const Icon(
+                              Icons.close,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.refresh),
+                            onPressed: viewController.getRandomTask,
+                          ),
+                        ],
+                        actionsAlignment: MainAxisAlignment.spaceBetween,
+                      );
+                    });
               } else if (details.delta.dy < -sensitivity) {
                 // Up Swipe
                 viewController.showAddTaskModal(context);
