@@ -133,7 +133,6 @@ class ViewController {
       );
 
   void showRandomTask(BuildContext context) {
-    getTasks(); //refresh tasks
     getRandomTask();
     showDialog(
       context: context,

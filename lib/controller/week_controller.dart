@@ -7,12 +7,12 @@ class WeekController {
   DateTime get monthEnd => DateTime(today.year, today.month + 1, 0);
   int firstDayOfMonth = 0;
 
-  List<Task> get toDo => viewController.tasks
+  List<Task> get weekTasks => viewController.tasks
       .where((Task task) =>
-          (task.date ?? DateTime.now()).isAtSameMomentAs(thisWeek.first) ||
-          (task.date ?? DateTime.now()).isAtSameMomentAs(thisWeek.last) ||
-          (task.date ?? DateTime.now()).isAfter(thisWeek.first) &&
-              (task.date ?? DateTime.now()).isBefore(thisWeek.last))
+          (task.date ?? today).isAtSameMomentAs(thisWeek.first) ||
+          (task.date ?? today).isAtSameMomentAs(thisWeek.last) ||
+          (task.date ?? today).isAfter(thisWeek.first) &&
+              (task.date ?? today).isBefore(thisWeek.last))
       .toList();
 
   bool weekdayExpanded = false;
